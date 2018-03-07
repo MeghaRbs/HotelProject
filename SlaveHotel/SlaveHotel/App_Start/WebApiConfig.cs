@@ -14,22 +14,13 @@ namespace Hotel
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-
                 routeTemplate: "api/{controller}/{id}",
-
                 defaults: new { id = RouteParameter.Optional }
-
-
             );
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi2",
-
-                routeTemplate: "api/{controller}/{id}/{value}",
-
-                defaults: new { id = RouteParameter.Optional, value = RouteParameter.Optional }
-
-
+                routeTemplate: "api/{controller}/{roomName}/{roomType}"             
             );
         }
     }

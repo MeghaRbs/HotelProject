@@ -19,7 +19,7 @@ namespace Hotel.HotelManager
 
                 string queryString = "SELECT * FROM RoomType where Roomname=" + "'" + roomName + "'";
                 SqlCommand command = new SqlCommand(queryString, conn);
-                
+
                 Room room = new Room();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -33,16 +33,33 @@ namespace Hotel.HotelManager
             }
         }
 
-        static public bool AddRoom(string roomName, string roomType)
+        internal static bool UpdateRoom(string roomName, string roomType)
+        {
+            string updateCommand = "Update Roomtype Set roomType = " + "'" + roomType + "' where roomname = '" + roomName + "')";
+            return RunSqlCommand(updateCommand);
+        }
+
+        internal static bool DeleteRoom(string roomName)
+        {
+            string deleteCommand = "DELETE FROM Roomtype where roomName = " + "'" + roomName + "'";
+            return RunSqlCommand(deleteCommand);
+        }
+
+        internal static bool AddRoom(string roomName, string roomType)
+        {
+            string insertCommand = "INSERT INTO Roomtype (RoomName, RoomType, isReplicated) VALUES (" + "'" + roomName + "','" + roomType + "', '1')";
+            return RunSqlCommand(insertCommand);
+        }
+
+        private static bool RunSqlCommand(string sqlCmd)
         {
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = connectionString;
                 conn.Open();
-
-                SqlCommand insertCommand = new SqlCommand("INSERT INTO Roomtype (RoomName, RoomType, isReplicated) VALUES ("  +"'" + roomName + "','" +  roomType + "', '1')", conn);
-                int num = insertCommand.ExecuteNonQuery();
-                return num == 1 ? true : false ;
+                SqlCommand sqlCommand = new SqlCommand(sqlCmd, conn);
+                int num = sqlCommand.ExecuteNonQuery();
+                return num == 1 ? true : false;
             }
         }
     }

@@ -7,11 +7,11 @@ namespace Hotel.Controllers
 {
     public class RoomController : ApiController
     {
-        [HttpGet]
+        /*[HttpGet]
         public Room GetRoomDetails(string id)
         {
             return RoomManager.GetRoom(id);            
-        }
+        }*/
 
         [HttpPost]
         public bool AddRoomDetails([FromBody] Room room)
@@ -19,16 +19,17 @@ namespace Hotel.Controllers
             return RoomManager.AddRoom(room.RoomName, room.RoomType);
         }
 
-        /*[HttpDelete]
-        public string DeleteRoomDetails(string id)
+        [HttpDelete]
+        public bool DeleteRoomDetails(string id)
         {
-            return null;
+            return RoomManager.DeleteRoom(id);
         }
+
         [HttpPut]
-        public string UpdateRoomDetails(string Name, ***)
+        public bool UpdateRoomDetails(string roomName, string roomType)
         {
-         return null;   
-        }*/
+            return RoomManager.UpdateRoom(roomName, roomType);
+        }
     }
 
 }
